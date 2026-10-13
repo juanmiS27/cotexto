@@ -8,6 +8,7 @@ const SERVICES = [
   "Traducción editorial y profesional",
   "Maquetación de textos y documentos",
   "Corrección ortotipográfica y de estilo",
+  "Academia de idiomas",
   "Otro o todavía no lo tengo claro",
 ];
 

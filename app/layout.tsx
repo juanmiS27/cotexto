@@ -6,12 +6,12 @@ import "./globals.css";
 
 const SITE_URL = "https://cotexto.eu";
 const DESCRIPTION =
-  "Traducción, corrección y maquetación para el sector editorial y empresarial. Del español al inglés, francés y alemán.";
+  "Traducción en ambos sentidos (español, inglés, francés y alemán), corrección y maquetación para el sector editorial y empresarial. Academia de idiomas en Lorca, presencial y online.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "cotexto. | Traducción, corrección y maquetación editorial",
+    default: "cotexto. | Traducción, corrección, maquetación y academia de idiomas",
     template: "%s | cotexto.",
   },
   description: DESCRIPTION,
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#F5F6F8",
+  themeColor: "#F5F6F5",
   colorScheme: "light",
 };
 

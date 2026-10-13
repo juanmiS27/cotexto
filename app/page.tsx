@@ -1,11 +1,31 @@
 import Image from "next/image";
 import ContactForm from "@/components/ContactForm";
 import ProofCard from "@/components/ProofCard";
-import { ArrowIcon, LayoutIcon, ProofIcon, TranslateIcon } from "@/components/Icons";
+import {
+  ArrowIcon,
+  BlueskyIcon,
+  BookIcon,
+  ExamIcon,
+  LayoutIcon,
+  MastodonIcon,
+  MonitorIcon,
+  ProofIcon,
+  TranslateIcon,
+} from "@/components/Icons";
 
 const EMAIL = "hola@cotexto.eu";
 const PHONE_DISPLAY = "+34 614 69 40 57";
 const PHONE_HREF = "tel:+34614694057";
+const ADDRESS_LINE_1 = "Av. Juan Carlos I, 32 - Galerías Gaudí";
+const ADDRESS_LINE_2 = "30800 Lorca, Murcia";
+const MAPS_HREF = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+  "Av. Juan Carlos I, 32, Galerías Gaudí, 30800 Lorca, Murcia",
+)}`;
+
+const SOCIALS = [
+  { name: "Bluesky", handle: "@cotexto.eu", href: "https://bsky.app/profile/cotexto.eu", Icon: BlueskyIcon, rel: "noopener noreferrer" },
+  { name: "Mastodon", handle: "@cotexto@mastodon.social", href: "https://mastodon.social/@cotexto", Icon: MastodonIcon, rel: "me noopener noreferrer" },
+];
 
 const SERVICES = [
   {
@@ -29,9 +49,25 @@ const SERVICES = [
 ];
 
 const LANGUAGES = [
-  { name: "Inglés", native: "English", lang: "en" },
-  { name: "Francés", native: "Français", lang: "fr" },
-  { name: "Alemán", native: "Deutsch", lang: "de" },
+  { native: "English", lang: "en" },
+  { native: "Français", lang: "fr" },
+  { native: "Deutsch", lang: "de" },
+];
+
+const LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"];
+
+const COURSES = [
+  { name: "Español para extranjeros", lang: "es", levels: 0, note: "Para estudiantes extranjeros" },
+  { name: "Inglés", lang: "es", levels: 6, note: "Todos los niveles, de A1 a C2" },
+  { name: "Francés", lang: "es", levels: 6, note: "Todos los niveles, de A1 a C2" },
+  { name: "Alemán", lang: "es", levels: 1, note: "Desde cero (A1)" },
+  { name: "Japonés", lang: "es", levels: 1, note: "Desde cero (A1)" },
+];
+
+const ACADEMY_EXTRAS = [
+  { icon: ExamIcon, title: "Preparación de exámenes oficiales", text: "Para las pruebas oficiales de idiomas." },
+  { icon: BookIcon, title: "Acompañamiento escolar", text: "Apoyo y seguimiento para estudiantes." },
+  { icon: MonitorIcon, title: "Presencial y online", text: "Elige entre clases en persona o a distancia." },
 ];
 
 const STEPS = [
@@ -43,15 +79,23 @@ const STEPS = [
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
+  "@type": ["ProfessionalService", "EducationalOrganization"],
   name: "cotexto.",
   url: "https://cotexto.eu",
   description:
-    "Traducción, corrección y maquetación para el sector editorial y empresarial. Español a inglés, francés y alemán.",
+    "Traducción en ambos sentidos (español, inglés, francés y alemán), corrección y maquetación para el sector editorial y empresarial. Academia de idiomas.",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Av. Juan Carlos I, 32 - Galerías Gaudí",
+    postalCode: "30800",
+    addressLocality: "Lorca",
+    addressRegion: "Murcia",
+    addressCountry: "ES",
+  },
   email: EMAIL,
   telephone: "+34614694057",
-  knowsLanguage: ["es", "en", "fr", "de"],
-  serviceType: ["Traducción editorial", "Maquetación", "Corrección ortotipográfica y de estilo"],
+  knowsLanguage: ["es", "en", "fr", "de", "ja"],
+  serviceType: ["Traducción editorial", "Maquetación", "Corrección ortotipográfica y de estilo", "Enseñanza de idiomas"],
   sameAs: ["https://bsky.app/profile/cotexto.eu", "https://mastodon.social/@cotexto"],
 };
 
@@ -67,7 +111,7 @@ export default function Home() {
           </a>
           <nav className="nav" aria-label="Principal">
             <a href="#servicios">Servicios</a>
-            <a href="#proceso">Proceso</a>
+            <a href="#academia">Academia</a>
             <a href="#sobre-mi">Sobre mí</a>
             <a className="btn btn--small" href="#contacto">Pedir presupuesto</a>
           </nav>
@@ -81,7 +125,7 @@ export default function Home() {
               <h1>Textos que se leen bien en cualquier idioma.</h1>
               <p className="hero__lead">
                 Servicios lingüísticos profesionales: traducción, corrección y maquetación para el
-                sector editorial y empresarial.
+                sector editorial y empresarial. Y una academia para aprender idiomas.
               </p>
               <div className="hero__actions">
                 <a className="btn btn--primary" href="#contacto">
@@ -123,12 +167,20 @@ export default function Home() {
 
         <section className="section section--night" aria-labelledby="idiomas-title">
           <div className="wrap languages">
-            <h2 id="idiomas-title">Del español a tres idiomas.</h2>
+            <div>
+              <h2 id="idiomas-title">Traducción en los dos sentidos.</h2>
+              <p className="languages__lead">
+                Del español al inglés, al francés y al alemán, y de esos tres idiomas al español.
+              </p>
+            </div>
             <ul className="languages__list">
               {LANGUAGES.map((l) => (
                 <li key={l.lang}>
-                  <span className="languages__name">{l.name}</span>
-                  <span className="languages__native" lang={l.lang}>{l.native}</span>
+                  <span className="languages__pair">
+                    <span lang="es">Español</span>
+                    <TranslateIcon className="languages__swap" />
+                    <span lang={l.lang}>{l.native}</span>
+                  </span>
                 </li>
               ))}
             </ul>
@@ -150,6 +202,46 @@ export default function Home() {
                 </li>
               ))}
             </ol>
+          </div>
+        </section>
+
+        <section className="section section--black" id="academia" aria-labelledby="academia-title">
+          <div className="wrap">
+            <div className="section__head">
+              <h2 id="academia-title">Academia de idiomas</h2>
+              <p>Enseñanza de español, inglés, francés, alemán y japonés.</p>
+            </div>
+
+            <ul className="courses">
+              {COURSES.map((c) => (
+                <li className="course" key={c.name}>
+                  <h3 className="course__name">{c.name}</h3>
+                  <div className="levels" aria-hidden="true">
+                    {c.levels > 0 &&
+                      LEVELS.map((lv, i) => (
+                        <span key={lv} className={i < c.levels ? "on" : undefined}>
+                          {lv}
+                        </span>
+                      ))}
+                  </div>
+                  <p className="course__note">{c.note}</p>
+                </li>
+              ))}
+            </ul>
+
+            <ul className="extras">
+              {ACADEMY_EXTRAS.map(({ icon: Icon, title, text }) => (
+                <li key={title}>
+                  <Icon className="extras__icon" />
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                </li>
+              ))}
+            </ul>
+
+            <a className="btn btn--primary academy__cta" href="#contacto">
+              Consultar clases <ArrowIcon />
+            </a>
           </div>
         </section>
 
@@ -215,17 +307,28 @@ export default function Home() {
                   </a>
                 </li>
                 <li>
-                  <span>Bluesky</span>
-                  <a href="https://bsky.app/profile/cotexto.eu" rel="noopener noreferrer" target="_blank">
-                    @cotexto.eu
+                  <span>Dirección</span>
+                  <a href={MAPS_HREF} rel="noopener noreferrer" target="_blank">
+                    <address>
+                      {ADDRESS_LINE_1}
+                      <br />
+                      {ADDRESS_LINE_2}
+                    </address>
                   </a>
                 </li>
-                <li>
-                  <span>Mastodon</span>
-                  <a href="https://mastodon.social/@cotexto" rel="me noopener noreferrer" target="_blank">
-                    @cotexto@mastodon.social
-                  </a>
-                </li>
+              </ul>
+              <ul className="social">
+                {SOCIALS.map(({ name, handle, href, Icon, rel }) => (
+                  <li key={name}>
+                    <a href={href} rel={rel} target="_blank">
+                      <Icon />
+                      <span>
+                        <span className="sr-only">{name} </span>
+                        {handle}
+                      </span>
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
             <ContactForm />
@@ -235,11 +338,30 @@ export default function Home() {
 
       <footer className="footer">
         <div className="wrap footer__inner">
-          <span className="wordmark wordmark--small">
-            cotexto<span>.</span>
-          </span>
-          <p>© {new Date().getFullYear()} cotexto. Traducción, corrección y maquetación.</p>
-          <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+          <div className="footer__brand">
+            <span className="wordmark wordmark--small">
+              cotexto<span>.</span>
+            </span>
+            <address>
+              {ADDRESS_LINE_1}
+              <br />
+              {ADDRESS_LINE_2}
+            </address>
+          </div>
+          <div className="footer__contact">
+            <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+            <a href={PHONE_HREF}>{PHONE_DISPLAY}</a>
+            <ul className="footer__social">
+              {SOCIALS.map(({ name, href, Icon, rel }) => (
+                <li key={name}>
+                  <a href={href} rel={rel} target="_blank" aria-label={name}>
+                    <Icon />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <p className="footer__legal">© {new Date().getFullYear()} cotexto.</p>
         </div>
       </footer>
 

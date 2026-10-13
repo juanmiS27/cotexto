@@ -27,6 +27,8 @@ Sin ellas, el formulario avisa al visitante de que escriba por correo y el resto
 
 ## Qué revisar
 
+- Los textos breves de la academia que no vienen de tu lista (las frases bajo "Preparación de exámenes oficiales", "Acompañamiento escolar" y "Presencial y online") son provisionales: edítalos en `ACADEMY_EXTRAS` de `app/page.tsx`.
+- Los cursos y niveles de la academia están en `COURSES` (`app/page.tsx`).
 - La sección "Cómo trabajo" (`STEPS` en `app/page.tsx`) es una propuesta: ajústala a tu forma real de trabajar o elimínala.
 - La foto de "Sobre mí" se carga desde la web actual. Cuando la migres, guárdala en `public/` y cambia el `src` de `<Image>`.
 - LinkedIn no aparece porque en la web actual el enlace estaba vacío; añádelo en la sección Contacto cuando tengas la URL.
