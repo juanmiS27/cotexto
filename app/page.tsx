@@ -60,8 +60,8 @@ const COURSES = [
   { name: "Español para extranjeros", lang: "es", levels: 0, note: "Para estudiantes extranjeros" },
   { name: "Inglés", lang: "es", levels: 6, note: "Todos los niveles, de A1 a C2" },
   { name: "Francés", lang: "es", levels: 6, note: "Todos los niveles, de A1 a C2" },
-  { name: "Alemán", lang: "es", levels: 1, note: "Desde cero (A1)" },
-  { name: "Japonés", lang: "es", levels: 1, note: "Desde cero (A1)" },
+  { name: "Alemán", lang: "es", levels: 3, note: "Desde cero (A1) hasta B1" },
+  { name: "Japonés", lang: "es", levels: 2, note: "Desde cero (A1) hasta A2" },
 ];
 
 const ACADEMY_EXTRAS = [
@@ -132,6 +132,7 @@ export default function Home() {
                   Pedir presupuesto <ArrowIcon />
                 </a>
                 <a className="btn btn--ghost" href="#servicios">Ver servicios</a>
+                <a className="btn btn--ghost" href="#academia">Academia</a>
               </div>
             </div>
             <ProofCard />
@@ -239,9 +240,16 @@ export default function Home() {
               ))}
             </ul>
 
-            <a className="btn btn--primary academy__cta" href="#contacto">
-              Consultar clases <ArrowIcon />
-            </a>
+            <div className="promo">
+              <div>
+                <span className="promo__label">Promoción</span>
+                <h3>Ven con alguien y obtén un descuento.</h3>
+                <p>Pregunta por las condiciones.</p>
+              </div>
+              <a className="btn btn--primary" href="#contacto">
+                Consultar clases <ArrowIcon />
+              </a>
+            </div>
           </div>
         </section>
 
@@ -264,15 +272,21 @@ export default function Home() {
               <dl className="facts">
                 <div>
                   <dt>Formación</dt>
-                  <dd>Estudios de filología</dd>
+                  <dd>
+                    Grado en Lenguas y literaturas modernas: francés-inglés (
+                    <abbr title="Universidad de Castilla-La Mancha">UCLM</abbr>)
+                  </dd>
                 </div>
                 <div>
                   <dt>Posgrado</dt>
-                  <dd>Máster universitario en traducción editorial</dd>
+                  <dd>
+                    Máster universitario en traducción editorial (
+                    <abbr title="Universidad de Murcia">UM</abbr>)
+                  </dd>
                 </div>
                 <div>
                   <dt>Experiencia</dt>
-                  <dd>Corrección ortotipográfica y maquetación</dd>
+                  <dd>Corrección ortotipográfica y maquetación. Trabajo en academias desde 2019</dd>
                 </div>
                 <div>
                   <dt>Especialidad</dt>
